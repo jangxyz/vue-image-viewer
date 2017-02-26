@@ -2,7 +2,8 @@
 <html>
 <head>
   <title>Welcome to Vue</title>
-  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <!--script src="https://unpkg.com/vue/dist/vue@2.2.0.js"></script-->
+  <script src="vue.js"></script>
 </head>
 <body>
   <div id="app">
@@ -13,40 +14,73 @@
         To learn more about Vue, visit
         <a :href="docsURL" target="_blank">{{ humanizeURL(docsURL) }}</a>
       </li>
-      <li>
-        For live help with simple questions, check out
-        <a :href="gitterURL" target="_blank">the Gitter chat</a>
-      </li>
-      <li>
-        For more complex questions, post to
-        <a :href="forumURL" target="_blank">the forum</a>
-      </li>
     </ul>
+
+    <div>
+  	  <ul>
+  		  <li v-for="image in images"><a v-on:click.prevent="showImage(image)" :href="image">{{image}}</a></li>
+  	  </ul>
+    </div>
+    <image-modal :image="selectedImageSrc" :style-object="styleObject" :header-style="headerStyle"></image-modal>
   </div>
 
-  <div>
-	  <ul>
-		  <li><a href="small1.jpg">small</a></li>
-		  <li><a href="wide1.jpg">wide</a></li>
-		  <li><a href="long1.jpg">long</a></li>
-		  <li><a href="big1.jpg">big</a></li>
-	  </ul>
+<script type="text/x-template" id="image-modal">
+  <div :style="styleObject" v-show="image">
+      <div :style="headerStyle">x</div>
+      <img :src="image">
   </div>
+</script>
 
   <script>
+    Vue.component('image-modal', {
+      //template: '#image-modal',
+      template: `
+      <div :style="styleObject" v-show="image">
+          <div :style="headerStyle">x</div>
+          <img :src="image">
+      </div>
+      `,
+      props: ['image', 'styleObject', 'headerStyle']
+    });
+
     new Vue({
       el: '#app',
       data: {
         greeting: 'Welcome to your Vue.js app!',
         docsURL: 'http://vuejs.org/guide/',
-        gitterURL: 'https://gitter.im/vuejs/vue',
-        forumURL: 'http://forum.vuejs.org/'
+        images: [
+          'small1.jpg',
+          'wide1.jpg',
+          'long1.jpg',
+          'big1.jpg'
+        ],
+        selectedImageSrc: null,
+        styleObject: {
+          border: '1px solid black',
+          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          width: '100%',
+          height: '100%',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          zIndex: '100'
+        },
+        headerStyle: {
+          backgroundColor: 'black',
+          width: '100%',
+          height: '70px',
+          color: 'white'
+        },
       },
       methods: {
         humanizeURL: function (url) {
           return url
             .replace(/^https?:\/\//, '')
             .replace(/\/$/, '')
+        },
+        showImage: function(image) {
+          this.selectedImageSrc = image;
+
         }
       }
     })
