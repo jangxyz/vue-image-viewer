@@ -3,10 +3,7 @@
         <header>
             <button class="btn-close" @click="close">x</button>
         </header>
-        <div class="container"
-            @mousemove="move"
-            @mouseup="endMove"
-        >
+        <div class="container" @mousemove="move" @mouseup="endMove">
             <img :src="image" :style="zoomStyle" draggable=false
                 @mousedown="startMove"
             >
@@ -39,8 +36,7 @@ export default Vue.component('image-modal', {
     computed: {
         zoomStyle: function() {
             return {
-                transform: `translate(${this.imageX}px, ${this.imageY}px)`
-                //transform: `scale(${this.scale}, ${this.scale})`
+                transform: `matrix(${this.scale}, 0, 0, ${this.scale}, ${this.imageX}, ${this.imageY})`
             };
         },
         isMoving: function() {
