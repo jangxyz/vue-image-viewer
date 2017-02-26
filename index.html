@@ -2,11 +2,11 @@
 <html>
 <head>
   <title>Welcome to Vue</title>
-  <!--script src="https://unpkg.com/vue/dist/vue@2.2.0.js"></script-->
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <!--script src="vue.js"></script-->
   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-  <script src="vue.js"></script>
-  <style>
 
+  <style>
   .modal-main {
     border: 1px solid black;
     background-color: rgba(0, 0, 0, 0.8);
@@ -35,73 +35,29 @@
   </style>
 </head>
 <body>
+
+  <script type="text/x-template" id="image-modal">
+    <div class="modal-main" v-show="image">
+      <div class="modal-header"><button class="btn-close" @click="close">x</button></div>
+      <img :src="image">
+    </div>
+  </script>
+
+  <!-- -->
   <div id="app">
     <img src="https://vuejs.org/images/logo.png" alt="Vue logo">
 
     <div>
-  	  <ul>
-  		  <li v-for="image in images"><a @click.prevent="showModal(image)" :href="image">{{image}}</a></li>
-  	  </ul>
+      <ul>
+          <li v-for="image in images"><a @click.prevent="showModal(image)" :href="image">{{image}}</a></li>
+      </ul>
     </div>
     <image-modal v-if="selectedImageSrc" :image="selectedImageSrc" @close="closeModal"></image-modal>
   </div>
 
-<script type="text/x-template" id="image-modal">
-  <div class="modal-main" v-show="image">
-    <div class="modal-header"><button class="btn-close" @click="close">x</button></div>
-    <img :src="image">
-  </div>
-</script>
 
-  <script>
-    Vue.component('image-modal', {
-      template: '#image-modal',
-      props: ['image'],
-      methods: {
-        close: function() {
-          this.$emit('close');
-        }
-      },
-      mounted: function() {
-        var self = this;
-        $('body').on('keydown.closeImageModal', function(e) {
-          if (e.keyCode === 27) {
-            self.close();
-          }
-        })
-      },
-      destroyed: function() {
-        $('body').off('keydown.closeImageModal');
-      }
-    });
-
-    var imageApp = new Vue({
-      el: '#app',
-      data: {
-        greeting: 'Welcome to your Vue.js app!',
-        docsURL: 'http://vuejs.org/guide/',
-        images: [
-          'small1.jpg',
-          'wide1.jpg',
-          'long1.jpg',
-          'big1.jpg'
-        ],
-        selectedImageSrc: null,
-      },
-      methods: {
-        humanizeURL: function (url) {
-          return url
-            .replace(/^https?:\/\//, '')
-            .replace(/\/$/, '')
-        },
-        showModal: function(image) {
-          this.selectedImageSrc = image;
-        },
-        closeModal: function() {
-          this.selectedImageSrc = null;
-        }
-      }
-    })
-  </script>
+  <!-- code -->
+  <script src="image-modal.js"></script>
+  <script src="image-app.js"></script>
 </body>
 </html>
