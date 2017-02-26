@@ -18,10 +18,10 @@
 
     <div>
   	  <ul>
-  		  <li v-for="image in images"><a v-on:click.prevent="showImage(image)" :href="image">{{image}}</a></li>
+  		  <li v-for="image in images"><a v-on:click.prevent="showModal(image)" :href="image">{{image}}</a></li>
   	  </ul>
     </div>
-    <image-modal :image="selectedImageSrc" :style-object="styleObject" :header-style="headerStyle"></image-modal>
+    <image-modal :image="selectedImageSrc" :close-modal="closeModal" :style-object="styleObject" :header-style="headerStyle"></image-modal>
   </div>
 
 <script type="text/x-template" id="image-modal">
@@ -36,14 +36,19 @@
       //template: '#image-modal',
       template: `
       <div :style="styleObject" v-show="image">
-          <div :style="headerStyle">x</div>
+          <div :style="headerStyle"><button @click="close">x</button></div>
           <img :src="image">
       </div>
       `,
-      props: ['image', 'styleObject', 'headerStyle']
+      props: ['image', 'styleObject', 'headerStyle', 'closeModal'],
+      methods: {
+        close: function() {
+          this.closeModal();
+        }
+      }
     });
 
-    new Vue({
+    var imageApp = new Vue({
       el: '#app',
       data: {
         greeting: 'Welcome to your Vue.js app!',
@@ -78,9 +83,11 @@
             .replace(/^https?:\/\//, '')
             .replace(/\/$/, '')
         },
-        showImage: function(image) {
+        showModal: function(image) {
           this.selectedImageSrc = image;
-
+        },
+        closeModal: function() {
+          this.selectedImageSrc = null;
         }
       }
     })
