@@ -3,7 +3,7 @@
         <header>
             <button class="btn-close" @click="close">x</button>
         </header>
-        <div class="container" @mousemove="move" @mouseup="endMove">
+        <div class="container">
             <img :src="image" :style="zoomStyle" draggable=false
                 @mousedown="startMove"
             >
@@ -59,27 +59,38 @@ export default Vue.component('image-modal', {
         },
         // move
         startMove: function(e) {
+            var self = this;
             this.isMoving = true;
-            this.dragStartPos = {x: e.x, y: e.y};
+            this.dragStartPos = {x: e.clientX, y: e.clientY};
+
+            $(document).on('mousemove.panImageInModal', function(e) {
+                self.move(e);
+            });
+            $(document).on('mouseup.panImageInModal', function(e) {
+                self.endMove(e);
+            });
         },
         move: function(e) {
             if (!this.isMoving) {
                 return;
             }
-            var dragDistanceX = e.x - this.dragStartPos.x;
-            var dragDistanceY = e.y - this.dragStartPos.y;
+            var dragDistanceX = e.clientX - this.dragStartPos.x;
+            var dragDistanceY = e.clientY - this.dragStartPos.y;
 
             this.imageX += dragDistanceX;
             this.imageY += dragDistanceY;
 
-            this.dragStartPos.x = e.x;
-            this.dragStartPos.y = e.y;
+            this.dragStartPos.x = e.clientX;
+            this.dragStartPos.y = e.clientY;
         },
         endMove: function(e) {
             if (!this.isMoving) {
                 return;
             }
             this.dragStartPos = null;
+
+            $(document).off('mousemove.panImageInModal');
+            $(document).off('mouseup.panImageInModal');
         }
     },
     mounted: function() {
