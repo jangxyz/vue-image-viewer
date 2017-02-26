@@ -1,46 +1,13 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Welcome to Vue</title>
-  <script src="https://unpkg.com/vue/dist/vue.js"></script>
-  <!--script src="vue.js"></script-->
-  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="image-modal.css" />
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>vuevue</title>
 
-</head>
-<body>
-
-  <script type="text/x-template" id="image-modal">
-    <div class="modal-main" v-show="image">
-      <header class="modal-header">
-        <button class="btn-close" @click="close">x</button>
-      </header>
-      <div class="container">
-        <img :style="zoomStyle" :src="image">
-      </div>
-      <footer class="modal-footer">
-        <button class="zoom-in btn-zoom" @click="zoomIn">+</button>
-        <button class="zoom-reset btn-zoom" @click="zoomReset">=</button>
-        <button class="zoom-out btn-zoom" @click="zoomOut">-</button>
-      </footer>
-    </div>
-  </script>
-
-  <!-- -->
-  <div id="app">
-    <img src="https://vuejs.org/images/logo.png" alt="Vue logo">
-
-    <div>
-      <ul>
-          <li v-for="image in images"><a @click.prevent="showModal(image)" :href="image">{{image}}</a></li>
-      </ul>
-    </div>
-    <image-modal v-if="selectedImageSrc" :image="selectedImageSrc" @close="closeModal"></image-modal>
-  </div>
-
-
-  <!-- code -->
-  <script src="image-modal.js"></script>
-  <script src="image-app.js"></script>
-</body>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="/dist/build.js"></script>
+  </body>
 </html>
