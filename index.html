@@ -18,10 +18,10 @@
 
     <div>
   	  <ul>
-  		  <li v-for="image in images"><a v-on:click.prevent="showModal(image)" :href="image">{{image}}</a></li>
+  		  <li v-for="image in images"><a @click.prevent="showModal(image)" :href="image">{{image}}</a></li>
   	  </ul>
     </div>
-    <image-modal :image="selectedImageSrc" :close-modal="closeModal" :style-object="styleObject" :header-style="headerStyle"></image-modal>
+    <image-modal v-if="selectedImageSrc" :image="selectedImageSrc" @close="closeModal" :style-object="styleObject" :header-style="headerStyle"></image-modal>
   </div>
 
 <script type="text/x-template" id="image-modal">
@@ -40,10 +40,10 @@
           <img :src="image">
       </div>
       `,
-      props: ['image', 'styleObject', 'headerStyle', 'closeModal'],
+      props: ['image', 'styleObject', 'headerStyle'],
       methods: {
         close: function() {
-          this.closeModal();
+          this.$emit('close');
         }
       }
     });
