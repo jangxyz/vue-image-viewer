@@ -1,0 +1,43 @@
+.modal-main {
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.modal-header {
+  background-color: black;
+  width: 100%;
+  height: 70px;
+  color: white;
+}
+
+.btn-close {
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+}
+.container {
+    height: calc(100% - 170px);
+    overflow: auto;
+}
+
+footer {
+  background-color: black;
+  position: absolute;
+  bottom: 0;
+
+  width: 100%;
+  height: 100px;
+
+  padding: 0;
+  font-size: 24px;
+}
+
+.button-zoom {
+  width: 50px;
+  height: 50px;
+}
