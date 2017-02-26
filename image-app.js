@@ -4,10 +4,10 @@ var app = new Vue({
     greeting: 'Welcome to your Vue.js app!',
     docsURL: 'http://vuejs.org/guide/',
     images: [
-      'small1.jpg',
-      'wide1.jpg',
-      'long1.jpg',
-      'big1.jpg'
+      'assets/images/small1.jpg',
+      'assets/images/wide1.jpg',
+      'assets/images/long1.jpg',
+      'assets/images/big1.jpg'
     ],
     selectedImageSrc: null,
   },
