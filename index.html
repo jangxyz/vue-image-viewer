@@ -5,43 +5,51 @@
   <!--script src="https://unpkg.com/vue/dist/vue@2.2.0.js"></script-->
   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
   <script src="vue.js"></script>
+  <style>
+
+  .modal-main {
+    border: 1px solid black;
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100
+  },
+  .modal-header: {
+    background-color: black;
+    width: 100%;
+    height: 70px;
+    color: white
+  }
+
+
+  </style>
 </head>
 <body>
   <div id="app">
     <img src="https://vuejs.org/images/logo.png" alt="Vue logo">
-    <h1>{{ greeting }}</h1>
-    <ul>
-      <li>
-        To learn more about Vue, visit
-        <a :href="docsURL" target="_blank">{{ humanizeURL(docsURL) }}</a>
-      </li>
-    </ul>
 
     <div>
   	  <ul>
   		  <li v-for="image in images"><a @click.prevent="showModal(image)" :href="image">{{image}}</a></li>
   	  </ul>
     </div>
-    <image-modal v-if="selectedImageSrc" :image="selectedImageSrc" @close="closeModal" :style-object="styleObject" :header-style="headerStyle"></image-modal>
+    <image-modal v-if="selectedImageSrc" :image="selectedImageSrc" @close="closeModal"></image-modal>
   </div>
 
 <script type="text/x-template" id="image-modal">
-  <div :style="styleObject" v-show="image">
-      <div :style="headerStyle">x</div>
-      <img :src="image">
+  <div class="modal-main" v-show="image">
+    <div class="modal-header"><button @click="close">x</button></div>
+    <img :src="image">
   </div>
 </script>
 
   <script>
     Vue.component('image-modal', {
-      //template: '#image-modal',
-      template: `
-      <div :style="styleObject" v-show="image">
-          <div :style="headerStyle"><button @click="close">x</button></div>
-          <img :src="image">
-      </div>
-      `,
-      props: ['image', 'styleObject', 'headerStyle'],
+      template: '#image-modal',
+      props: ['image'],
       methods: {
         close: function() {
           this.$emit('close');
@@ -72,22 +80,6 @@
           'big1.jpg'
         ],
         selectedImageSrc: null,
-        styleObject: {
-          border: '1px solid black',
-          backgroundColor: 'rgba(0, 0, 0, 0.8)',
-          width: '100%',
-          height: '100%',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          zIndex: '100'
-        },
-        headerStyle: {
-          backgroundColor: 'black',
-          width: '100%',
-          height: '70px',
-          color: 'white'
-        },
       },
       methods: {
         humanizeURL: function (url) {
